@@ -1,6 +1,6 @@
-package com.jonathanfiss.ApiRestSpringBoot.exceptionhandler;
+package com.jonathanfiss.ApiRestSpringBoot.api.exceptionhandler;
 
-import com.jonathanfiss.ApiRestSpringBoot.exception.NegocioException;
+import com.jonathanfiss.ApiRestSpringBoot.domain.exception.NegocioException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -17,6 +17,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 
 @ControllerAdvice
@@ -44,7 +45,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         var problema = new Problema();
         problema.setStatus(status.value());
         problema.setTitulo("Um ou mais campos estão invalidos. Faça o preenchimento correto e tente novamente");
-        problema.setDatahora(LocalDateTime.now());
+        problema.setDatahora(OffsetDateTime.now());
         problema.setCampos(campos);
         return super.handleExceptionInternal(ex, problema, headers, status, request);
     }
@@ -55,7 +56,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         var problema = new Problema();
         problema.setStatus(status.value());
         problema.setTitulo(ex.getMessage());
-        problema.setDatahora(LocalDateTime.now());
+        problema.setDatahora(OffsetDateTime.now());
         return super.handleExceptionInternal(ex, problema, new HttpHeaders(), status, request);
     }
 
@@ -70,7 +71,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         var problema = new Problema();
         problema.setStatus(status.value());
         problema.setTitulo(ex.getMessage());
-        problema.setDatahora(LocalDateTime.now());
+        problema.setDatahora(OffsetDateTime.now());
         return super.handleExceptionInternal(ex, problema, new HttpHeaders(), status, request);
     }
 

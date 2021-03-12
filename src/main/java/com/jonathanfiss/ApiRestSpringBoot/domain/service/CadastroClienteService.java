@@ -1,8 +1,8 @@
-package com.jonathanfiss.ApiRestSpringBoot.service;
+package com.jonathanfiss.ApiRestSpringBoot.domain.service;
 
-import com.jonathanfiss.ApiRestSpringBoot.exception.NegocioException;
-import com.jonathanfiss.ApiRestSpringBoot.model.Cliente;
-import com.jonathanfiss.ApiRestSpringBoot.repository.ClienteRepository;
+import com.jonathanfiss.ApiRestSpringBoot.domain.exception.NegocioException;
+import com.jonathanfiss.ApiRestSpringBoot.domain.model.Cliente;
+import com.jonathanfiss.ApiRestSpringBoot.domain.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

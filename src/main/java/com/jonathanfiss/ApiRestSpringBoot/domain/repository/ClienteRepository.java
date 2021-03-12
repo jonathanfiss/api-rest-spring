@@ -1,6 +1,6 @@
-package com.jonathanfiss.ApiRestSpringBoot.repository;
+package com.jonathanfiss.ApiRestSpringBoot.domain.repository;
 
-import com.jonathanfiss.ApiRestSpringBoot.model.Cliente;
+import com.jonathanfiss.ApiRestSpringBoot.domain.model.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package com.jonathanfiss.ApiRestSpringBoot.exception;
+package com.jonathanfiss.ApiRestSpringBoot.domain.exception;
 
 public class NegocioException extends RuntimeException {
 

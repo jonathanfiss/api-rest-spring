@@ -1,16 +1,17 @@
-package com.jonathanfiss.ApiRestSpringBoot.exceptionhandler;
+package com.jonathanfiss.ApiRestSpringBoot.api.exceptionhandler;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Problema {
     private Integer status;
-    private LocalDateTime datahora;
+    private OffsetDateTime datahora;
     private String titulo;
     private List<Campo> campos;
 

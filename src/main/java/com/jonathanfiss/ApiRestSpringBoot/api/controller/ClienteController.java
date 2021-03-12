@@ -1,9 +1,8 @@
-package com.jonathanfiss.ApiRestSpringBoot.controller;
+package com.jonathanfiss.ApiRestSpringBoot.api.controller;
 
-import com.jonathanfiss.ApiRestSpringBoot.model.Cliente;
-import com.jonathanfiss.ApiRestSpringBoot.repository.ClienteRepository;
-import com.jonathanfiss.ApiRestSpringBoot.service.CadastroClienteService;
-import lombok.extern.java.Log;
+import com.jonathanfiss.ApiRestSpringBoot.domain.model.Cliente;
+import com.jonathanfiss.ApiRestSpringBoot.domain.repository.ClienteRepository;
+import com.jonathanfiss.ApiRestSpringBoot.domain.service.CadastroClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
