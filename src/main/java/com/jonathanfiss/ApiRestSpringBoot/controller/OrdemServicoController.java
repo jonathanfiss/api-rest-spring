@@ -1,10 +1,10 @@
-package com.jonathanfiss.ApiRestSpringBoot.api.controller;
+package com.jonathanfiss.ApiRestSpringBoot.controller;
 
-import com.jonathanfiss.ApiRestSpringBoot.api.model.request.OrdemServicoInput;
-import com.jonathanfiss.ApiRestSpringBoot.api.model.response.OrdemServicoOutput;
+import com.jonathanfiss.ApiRestSpringBoot.dto.OrdemServicoRequestDTO;
+import com.jonathanfiss.ApiRestSpringBoot.dto.OrdemServicoResponseDTO;
 import com.jonathanfiss.ApiRestSpringBoot.domain.model.OrdemServico;
-import com.jonathanfiss.ApiRestSpringBoot.domain.repository.OrdemServiceRepository;
-import com.jonathanfiss.ApiRestSpringBoot.domain.service.GestaoOrdemServicoService;
+import com.jonathanfiss.ApiRestSpringBoot.repository.OrdemServiceRepository;
+import com.jonathanfiss.ApiRestSpringBoot.service.GestaoOrdemServicoService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,17 +31,17 @@ public class OrdemServicoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public OrdemServicoOutput criar(@RequestBody @Valid OrdemServicoInput ordemServicoInput){
-        return toModel(gestaoOrdemServicoService.criar(toEntity(ordemServicoInput)));
+    public OrdemServicoResponseDTO criar(@RequestBody @Valid OrdemServicoRequestDTO ordemServicoRequestDTO){
+        return toModel(gestaoOrdemServicoService.criar(toEntity(ordemServicoRequestDTO)));
     }
 
     @GetMapping
-    public List<OrdemServicoOutput> listar(){
+    public List<OrdemServicoResponseDTO> listar(){
         return toCollectionModel(ordemServiceRepository.findAll());
     }
 
     @GetMapping("/{orderServicoId}")
-    public ResponseEntity<OrdemServicoOutput> buscar(@PathVariable Long orderServicoId) {
+    public ResponseEntity<OrdemServicoResponseDTO> buscar(@PathVariable Long orderServicoId) {
         Optional<OrdemServico> ordemServico = ordemServiceRepository.findById(orderServicoId);
         if (ordemServico.isPresent()){
             return ResponseEntity.ok(toModel(ordemServico.get()));
@@ -49,17 +49,17 @@ public class OrdemServicoController {
         return ResponseEntity.notFound().build();
     }
 
-    private OrdemServicoOutput toModel(OrdemServico ordemServico) {
-        return modelMapper.map(ordemServico, OrdemServicoOutput.class);
+    private OrdemServicoResponseDTO toModel(OrdemServico ordemServico) {
+        return modelMapper.map(ordemServico, OrdemServicoResponseDTO.class);
     }
 
-    private List<OrdemServicoOutput> toCollectionModel(List<OrdemServico> ordensServicos){
+    private List<OrdemServicoResponseDTO> toCollectionModel(List<OrdemServico> ordensServicos){
         return ordensServicos.stream()
                 .map(ordemServico -> toModel(ordemServico))
                 .collect(Collectors.toList());
     }
 
-    private OrdemServico toEntity(OrdemServicoInput ordemServicoInput) {
-        return modelMapper.map(ordemServicoInput, OrdemServico.class);
+    private OrdemServico toEntity(OrdemServicoRequestDTO ordemServicoRequestDTO) {
+        return modelMapper.map(ordemServicoRequestDTO, OrdemServico.class);
     }
 }

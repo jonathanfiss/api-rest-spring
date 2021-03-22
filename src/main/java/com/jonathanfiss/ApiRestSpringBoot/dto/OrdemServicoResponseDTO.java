@@ -1,16 +1,22 @@
-package com.jonathanfiss.ApiRestSpringBoot.api.model.response;
+package com.jonathanfiss.ApiRestSpringBoot.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.jonathanfiss.ApiRestSpringBoot.domain.model.StatusOrdemServico;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
 @Data
-public class OrdemServicoOutput {
+@JsonIgnoreProperties(ignoreUnknown = true)
+@AllArgsConstructor
+@NoArgsConstructor
+public class OrdemServicoResponseDTO {
 
     private Long id;
-    private ClienteResumoOutput cliente;
+    private ClienteResponseDTO cliente;
     private String descricao;
     private BigDecimal preco;
     private StatusOrdemServico status;

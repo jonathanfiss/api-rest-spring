@@ -1,4 +1,4 @@
-package com.jonathanfiss.ApiRestSpringBoot.domain.model;
+package com.jonathanfiss.ApiRestSpringBoot.dto;
 
 import lombok.Data;
 
@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Data
-public class Cliente {
+public class ClienteDTO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

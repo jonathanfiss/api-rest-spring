@@ -1,8 +1,11 @@
-package com.jonathanfiss.ApiRestSpringBoot.api.controller;
+package com.jonathanfiss.ApiRestSpringBoot.controller;
 
-import com.jonathanfiss.ApiRestSpringBoot.domain.model.Cliente;
-import com.jonathanfiss.ApiRestSpringBoot.domain.repository.ClienteRepository;
-import com.jonathanfiss.ApiRestSpringBoot.domain.service.CadastroClienteService;
+import com.jonathanfiss.ApiRestSpringBoot.dto.ClienteDTO;
+import com.jonathanfiss.ApiRestSpringBoot.dto.ClienteRequestDTO;
+import com.jonathanfiss.ApiRestSpringBoot.dto.ClienteResponseDTO;
+import com.jonathanfiss.ApiRestSpringBoot.repository.ClienteRepository;
+import com.jonathanfiss.ApiRestSpringBoot.service.CadastroClienteService;
+import com.jonathanfiss.ApiRestSpringBoot.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,16 +23,16 @@ public class ClienteController {
     private ClienteRepository clienteRepository;
 
     @Autowired
-    private CadastroClienteService cadastroClienteService;
+    private ClienteService clienteService;
 
     @GetMapping
-    public List<Cliente> listar() {
+    public List<ClienteResponseDTO> listar() {
         return clienteRepository.findAll();
     }
 
     @GetMapping("/{clienteId}")
-    public ResponseEntity<Cliente> busca(@PathVariable Long clienteId) {
-        Optional<Cliente> cliente = clienteRepository.findById(clienteId);
+    public ResponseEntity<ClienteResponseDTO> busca(@PathVariable Long clienteId) {
+        Optional<ClienteResponseDTO> cliente = clienteRepository.findById(clienteId);
         if (cliente.isPresent()){
             return ResponseEntity.ok(cliente.get());
         }
@@ -38,20 +41,20 @@ public class ClienteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente adicionar(@RequestBody @Valid Cliente cliente) {
-        return cadastroClienteService.salvar(cliente);
+    public ClienteDTO adicionar(@RequestBody @Valid ClienteRequestDTO clienteDTO) {
+        return clienteService.salvar(clienteDTO);
     }
 
     @PutMapping("/{clienteId}")
-    public ResponseEntity<Cliente> atualizar(@PathVariable Long clienteId, @RequestBody Cliente cliente) {
+    public ResponseEntity<ClienteResponseDTO> atualizar(@PathVariable Long clienteId, @RequestBody ClienteDTO clienteDTO) {
 
         if (!clienteRepository.existsById(clienteId)){
             return ResponseEntity.notFound().build();
         }
-        cliente.setId(clienteId);
-        cliente = cadastroClienteService.salvar(cliente);
+        clienteDTO.setId(clienteId);
+        clienteDTO = clienteService.salvar(clienteDTO);
 
-        return ResponseEntity.ok(cliente);
+        return ResponseEntity.ok(clienteDTO);
     }
 
     @DeleteMapping("/{clienteId}")
@@ -59,7 +62,7 @@ public class ClienteController {
         if (!clienteRepository.existsById(clienteId)){
             return ResponseEntity.notFound().build();
         }
-        cadastroClienteService.excluir(clienteId);
+        clienteService.excluir(clienteId);
         return ResponseEntity.noContent().build();
     }
 }

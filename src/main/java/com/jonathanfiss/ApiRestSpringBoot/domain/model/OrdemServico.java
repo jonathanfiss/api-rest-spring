@@ -1,6 +1,7 @@
 package com.jonathanfiss.ApiRestSpringBoot.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.jonathanfiss.ApiRestSpringBoot.dto.ClienteDTO;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -9,6 +10,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -21,7 +24,7 @@ public class OrdemServico {
     @Valid
     @NotNull
     @ManyToOne
-    private Cliente cliente;
+    private ClienteDTO clienteDTO;
 
     @NotBlank
     private String descricao;
@@ -38,5 +41,9 @@ public class OrdemServico {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private OffsetDateTime dataFinalizacao;
+
+    @OneToMany(mappedBy = "ordemServico")
+    private List<Comentario> comentarios = new ArrayList<>();
+
 
 }
